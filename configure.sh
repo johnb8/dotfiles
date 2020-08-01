@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-dconf write /org/mate/desktop/session/required-components/windowmanager i3
-dconf write /org/mate/desktop/session/required-components-list ['windowmanager', 'panel', 'dock']
+dconf write /org/mate/desktop/session/required-components/windowmanager "'i3'"
+dconf write /org/mate/desktop/session/required-components-list "['windowmanager', 'panel', 'dock']"
 
 mkdir -p ~/.config/alacritty
 mkdir -p ~/.config/i3

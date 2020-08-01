@@ -13,7 +13,7 @@ sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft
 
 apt-get update
 apt-get install apt-transport-https
-apt-get install i3 zsh gimp chromium-browser neovim remmina htop gparted vlc code rofi fonts-powerline numix-icon-theme adapta-gtk-theme
+apt-get install i3 zsh gimp chromium-browser neovim remmina htop gparted vlc code rofi fonts-powerline numix-icon-theme adapta-gtk-theme dconf-cli
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
