@@ -1,0 +1,35 @@
+general {
+        output_format = "i3bar"
+        colors = false
+        markup = pango
+        interval = 1
+}
+
+order += "cpu_temperature 0"
+order += "cpu_usage"
+order += "disk /"
+order += "wireless wlp7s0"
+order += "ethernet enp8s0"
+
+cpu_temperature 0 {
+        format = "<span background='#ff5555'>🌡️</span><span background='#222d32'> %degrees °C </span>"
+        path = "/sys/class/thermal/thermal_zone6/temp"
+}
+
+cpu_usage {
+        format = "<span background='#50fa7b'>🎚️</span><span background='#222d32'> %usage </span>"
+}
+
+disk "/" {
+        format = "<span background='#f1fa8c'>🏠</span><span background='#222d32'> %free Free </span>"
+}
+
+wireless wlp7s0 {
+        format_up = "<span background='#bd93f9'>📶</span><span background='#222d32'> %ip </span>"
+        format_down = "<span background='#bd93f9'>📶</span><span background='#222d32'> Disconnected </span>"
+}
+
+ethernet enp8s0 {
+        format_up = "<span background='#bd93f9'>🔌</span><span background='#222d32'> %ip </span>"
+        format_down = "<span background='#bd93f9'>🔌</span><span background='#222d32'> Disconnected </span>"
+}
