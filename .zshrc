@@ -1,6 +1,16 @@
 export NPM_PACKAGES=$HOME/.npm-packages
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.cargo/bin:/home/john/.yarn/bin:$NPM_PACKAGES/bin:$PATH
+export PATH=${KREW_ROOT:-$HOME/.krew}/bin:$HOME/bin:/usr/local/bin:$HOME/.cargo/bin:/home/john/.yarn/bin:$NPM_PACKAGES/bin:/home/john/.local/bin:/opt:$(go env GOPATH)/bin:$PATH
+
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+export PATH=$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts
+
+export HISTORY_IGNORE="(jwt\-decode *)"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/john/.oh-my-zsh"
@@ -90,6 +100,8 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+autoload -U compinit && compinit
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -103,3 +115,44 @@ alias pim="TARGET=armv7 make"
 alias x64m="TARGET=x64 make"
 alias c="cargo"
 alias y="yarn"
+alias k="kubectl"
+alias kns="kubens"
+alias kctx="kubectx"
+alias gr="gradlew"
+alias ggr="gradle"
+
+# add Pulumi to the PATH
+export PATH=$PATH:$HOME/.pulumi/bin
+
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+export PATH=$PATH:/usr/local/go/bin
+
+function jwt-decode() {
+  sed 's/\./\n/g' <<< $(cut -d. -f1,2 <<< $1) | base64 --decode | jq
+}
+
+function gradlew() {
+	NUM_PARENTS=`pwd | tr -d -c / | wc -c`
+	NUM_PARENTS=$((NUM_PARENTS-1))
+
+	DIR=./
+
+	for (( i=0; i<$NUM_PARENTS; i++ ))
+	do
+		if [[ -f "$DIR/gradlew" ]];
+		then
+			$DIR/gradlew ${@:1}
+			return
+		else
+			DIR=../$DIR
+		fi
+	done
+
+	echo "gradlew not found in any parent dirs"
+}
+

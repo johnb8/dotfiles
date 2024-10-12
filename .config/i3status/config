@@ -7,6 +7,7 @@ general {
 
 order += "cpu_temperature 0"
 order += "cpu_usage"
+order += "memory"
 order += "disk /"
 order += "wireless wlp7s0"
 order += "ethernet enp8s0"
@@ -18,6 +19,10 @@ cpu_temperature 0 {
 
 cpu_usage {
         format = "<span background='#50fa7b'>🎚️</span><span background='#222d32'> %usage </span>"
+}
+
+memory {
+        format = "<span background='#222d32'>💽</span><span background='#222d32'> %percentage_used </span>"
 }
 
 disk "/" {
